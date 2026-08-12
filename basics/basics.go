@@ -1,11 +1,11 @@
-package main
+package basics
 
 import (
 	"fmt"
 	"unicode/utf8"
 )
 
-func main(){
+func basics(){
 	var intVar int
 	fmt.Println(intVar)
 
