@@ -11,6 +11,15 @@ type gasEngine struct {
 	ownerInfo owner
 }
 
+type electricEngine struct {
+	mpkwh uint8
+	kwh uint8
+}
+
+type engine interface {
+	milesLeft() uint8
+}
+
 type owner struct{
 	name string
 }
@@ -19,6 +28,10 @@ type owner struct{
 	You can also define a method for a struct. This is called a receiver function.
 	This will allow you to access the struct's fields within the function.
 */
+
+func (e electricEngine) milesLeft() uint8 {
+	return e.kwh*e.mpkwh
+}
 
 func (e gasEngine) milesLeft() uint8 {
 	return e.gallons*e.mpg
@@ -31,9 +44,22 @@ func willGetThere (e gasEngine, miles uint8) {
 		fmt.Println("You need to refuel!")
 	}
 }
+
+/* 
+	Passing the interface will allow the function to accept any type of struct.
+	For this case, it will take both gasEngine and electricEngine structs.
+*/
+func interfaceWillGetThere (e engine, miles uint8) {
+	if miles < e.milesLeft() {
+		fmt.Println("You will make it!")
+	}else {
+		fmt.Println("You need to refuel!")
+	}
+}
+
 func struc() {
 	var engine gasEngine
-	fmt.Println(engine.mpg, engine.gallons) 
+	// fmt.Println(engine.mpg, engine.gallons) 
 	/*As we haven't defined the values
 	The value will be the default value of the datatype*/
 
@@ -55,6 +81,12 @@ func struc() {
 	}{25,15}
 	fmt.Println(engine4.mpg, engine4.gallons)
 
+	willGetThere(engine2, 30)
 	/* Calling the method of a struct*/
 	fmt.Printf("Total miles left in the tank: %v", engine.milesLeft())
+
+	var engine5 gasEngine = gasEngine{mpg: 15, gallons: 25}
+	interfaceWillGetThere(engine5, 30)
+	var engine6 electricEngine = electricEngine{mpkwh: 5, kwh: 15}
+	interfaceWillGetThere(engine6, 20)
 }
