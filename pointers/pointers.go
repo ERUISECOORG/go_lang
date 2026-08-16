@@ -1,8 +1,8 @@
-package main
+package pointers
 
 import "fmt"
 
-func main(){
+func pointers(){
 	/*
 		Pointers are variables that store memory locations
 		default value for pointers is nil
