@@ -1,4 +1,4 @@
-package main
+package routines
 
 import (
 	"fmt"
@@ -26,7 +26,7 @@ and prevent the read task to read while the content is beign modified
 var wg = sync.WaitGroup{} /*This enables Lock and Unlock methods, that is a full lock*/
 var dbData = []string{"id1","id2", "id3", "id4", "id5"}
 var results = []string{}
-func main(){
+func routines(){
 	t0 := time.Now()
 	for i:=0; i<len(dbData); i++{
 		wg.Add(1) /*This adds 1 to the task counter*/
